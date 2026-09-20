@@ -22,7 +22,7 @@ enum SyncSettingScope {
             .quicklinksEnabled, .appleShortcutsEnabled, .aiEnabled, .dictationModel,
             .dictationMicrophone, .fileSearchEnabled, .fileSearchScopes, .notesEnabled,
             .notesFolder, .snippetsFolder, .navigationEnabled, .windowManagementEnabled,
-            .clipboardEnabled:
+            .clipboardEnabled, .instantSpacesEnabled:
             nil
         case .showInMenuBar: .showInMenuBar
         case .appearance, .animationsEnabled, .iconStyle: .appearance
@@ -55,6 +55,7 @@ enum SyncSettingScope {
             .snippetDefaultAction, .menuSearchShowsAppleMenu, .menuSearchDisabledApps,
             .windowManagementShowInLauncher, .windowGap, .windowCycle, .windowWrapsDisplays,
             .windowKeepsProportions, .windowLayoutsShowInLauncher, .windowRoomsShowInLauncher,
+            .spaceSwipeToSwitch, .spaceSwitchTravel,
             .clipboardRetention, .clipboardDefaultAction, .clipboardDisabledApps, .emojiSkinTone,
             .emojiGridColumns, .calendarShowInLauncher, .calendarLauncherLimit, .calendarSpan,
             .joinWindowMinutes, .autoJoinConfirms, .autoJoinNamedProvidersOnly, .meetingBrowser,

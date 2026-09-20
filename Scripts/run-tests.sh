@@ -509,6 +509,10 @@ run WindowPresetTests      Tinycast/Features/WindowManagement/Model/WindowComman
 run SpaceGestureTests      Tinycast/Features/WindowManagement/Model/WindowCommand.swift \
                            Tinycast/Features/WindowManagement/Model/SpaceGesture.swift \
                            Tinycast/Platform/LocalizedResource.swift
+run SpaceSwitchTests      Tinycast/Features/WindowManagement/Model/WindowCommand.swift \
+                           Tinycast/Features/WindowManagement/Model/SpaceGesture.swift \
+                           Tinycast/Features/WindowManagement/Model/SpaceSwitchState.swift \
+                           Tinycast/Platform/LocalizedResource.swift
 run WindowLayoutTests      Tinycast/Features/WindowManagement/Model/WindowCommand.swift \
                            Tinycast/Features/WindowManagement/Model/WindowCycle.swift \
                            Tinycast/Features/WindowManagement/Model/WindowPlacementEngine.swift \

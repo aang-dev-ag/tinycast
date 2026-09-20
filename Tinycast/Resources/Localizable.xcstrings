@@ -6,16 +6,16 @@
     },
     "%@ %@ limit at %lld%%" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@ limit at %3$lld%%"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ %2$@: Limit bei %3$lld %%"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ limit at %3$lld%%"
           }
         },
         "es" : {
@@ -64,16 +64,16 @@
     },
     "%@ %@ limit reset" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@ limit reset"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ %2$@: Limit zurückgesetzt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ limit reset"
           }
         },
         "es" : {
@@ -122,16 +122,16 @@
     },
     "%@ %@: %@ used" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@: %3$@ used"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ %2$@: %3$@ verbraucht"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@: %3$@ used"
           }
         },
         "es" : {
@@ -8514,24 +8514,6 @@
     },
     "%lld free resets available" : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld free reset available"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld free resets available"
-                }
-              }
-            }
-          }
-        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -8550,19 +8532,37 @@
             }
           }
         },
-        "es" : {
+        "en" : {
           "variations" : {
             "plural" : {
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld restablecimiento gratuito disponible"
+                  "value" : "%lld free reset available"
                 }
               },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld free resets available"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld de restablecimientos gratuitos disponibles"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld restablecimiento gratuito disponible"
                 }
               },
               "other" : {
@@ -8577,16 +8577,16 @@
         "fr" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld réinitialisation gratuite disponible"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld de réinitialisations gratuites disponibles"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld réinitialisation gratuite disponible"
                 }
               },
               "other" : {
@@ -8625,16 +8625,16 @@
         "pt" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld redefinição gratuita disponível"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld de redefinições gratuitas disponíveis"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld redefinição gratuita disponível"
                 }
               },
               "other" : {
@@ -8649,12 +8649,6 @@
         "ru" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Доступен %lld бесплатный сброс"
-                }
-              },
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -8665,6 +8659,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "Доступно %lld бесплатных сбросов"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Доступен %lld бесплатный сброс"
                 }
               },
               "other" : {
@@ -15999,24 +15999,6 @@
     },
     "%lld-day" : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-day"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-day"
-                }
-              }
-            }
-          }
-        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -16035,19 +16017,37 @@
             }
           }
         },
-        "es" : {
+        "en" : {
           "variations" : {
             "plural" : {
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld día"
+                  "value" : "%lld-day"
                 }
               },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld-day"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld días"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld día"
                 }
               },
               "other" : {
@@ -16062,16 +16062,16 @@
         "fr" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld jour"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld jours"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld jour"
                 }
               },
               "other" : {
@@ -16110,16 +16110,16 @@
         "pt" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld dia"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld dias"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dia"
                 }
               },
               "other" : {
@@ -16134,12 +16134,6 @@
         "ru" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld день"
-                }
-              },
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -16150,6 +16144,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld дней"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld день"
                 }
               },
               "other" : {
@@ -16177,24 +16177,6 @@
     },
     "%lld-hour" : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-hour"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-hour"
-                }
-              }
-            }
-          }
-        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -16213,19 +16195,37 @@
             }
           }
         },
-        "es" : {
+        "en" : {
           "variations" : {
             "plural" : {
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld hora"
+                  "value" : "%lld-hour"
                 }
               },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld-hour"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld horas"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hora"
                 }
               },
               "other" : {
@@ -16240,16 +16240,16 @@
         "fr" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld heure"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld heures"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld heure"
                 }
               },
               "other" : {
@@ -16288,16 +16288,16 @@
         "pt" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld hora"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld horas"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hora"
                 }
               },
               "other" : {
@@ -16312,12 +16312,6 @@
         "ru" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld час"
-                }
-              },
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -16328,6 +16322,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld часов"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld час"
                 }
               },
               "other" : {
@@ -16355,24 +16355,6 @@
     },
     "%lld-minute" : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-minute"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld-minute"
-                }
-              }
-            }
-          }
-        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -16391,19 +16373,37 @@
             }
           }
         },
-        "es" : {
+        "en" : {
           "variations" : {
             "plural" : {
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld minuto"
+                  "value" : "%lld-minute"
                 }
               },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld-minute"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld minutos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minuto"
                 }
               },
               "other" : {
@@ -16418,16 +16418,16 @@
         "fr" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld minute"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld minutes"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minute"
                 }
               },
               "other" : {
@@ -16466,16 +16466,16 @@
         "pt" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld minuto"
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld minutos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minuto"
                 }
               },
               "other" : {
@@ -16490,12 +16490,6 @@
         "ru" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld минута"
-                }
-              },
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -16506,6 +16500,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld минут"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld минута"
                 }
               },
               "other" : {
@@ -17725,6 +17725,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "为效率而生的原生 macOS 启动器。快速、轻巧且开源。"
+          }
+        }
+      }
+    },
+    "A notice when a limit reaches 80 or 95 percent, and when a nearly spent one resets." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Hinweis, wenn ein Limit 80 oder 95 Prozent erreicht und wenn ein fast aufgebrauchtes zurückgesetzt wird."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un aviso cuando un límite llega al 80 o al 95 por ciento, y cuando uno casi agotado se restablece."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une notification lorsqu’une limite atteint 80 ou 95 pour cent, et lorsqu’une limite presque épuisée est réinitialisée."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上限が80パーセントまたは95パーセントに達したとき、およびほぼ使い切った上限がリセットされたときに通知します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "한도가 80퍼센트 또는 95퍼센트에 도달했을 때와 거의 소진된 한도가 재설정되었을 때 알립니다."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um aviso quando um limite atinge 80 ou 95 por cento, e quando um quase esgotado é redefinido."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомление, когда лимит достигает 80 или 95 процентов, и когда почти исчерпанный лимит сбрасывается."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "限额用量达到百分之八十或百分之九十五时，以及即将用完的限额重置时发出提醒。"
           }
         }
       }
@@ -51610,6 +51662,58 @@
         }
       }
     },
+    "Drives undocumented system behavior and may blank destinations on some Macs." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzt nicht dokumentiertes Systemverhalten und kann auf manchen Macs Ziele leer lassen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa comportamiento del sistema no documentado y puede dejar en blanco los destinos en algunos Macs."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repose sur un comportement système non documenté et peut laisser les destinations vides sur certains Mac."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未公開のシステム動作を利用するため、一部の Mac では移動先が空になることがあります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "문서화되지 않은 시스템 동작을 사용하며 일부 Mac에서는 대상 화면이 비어 보일 수 있습니다."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa comportamento do sistema não documentado e pode deixar os destinos em branco em alguns Macs."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Использует недокументированное поведение системы; на некоторых Mac целевые экраны могут оставаться пустыми."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用未记录的系统行为，在某些 Mac 上可能导致目标空间空白。"
+          }
+        }
+      }
+    },
     "Dropdown" : {
       "comment" : "Accessibility label for an untitled dropdown (noun)",
       "localizations" : {
@@ -61800,6 +61904,58 @@
         }
       }
     },
+    "Further reads more animated; below 0.05 risks blank destinations." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter wirkt animierter; unter 0,05 drohen leere Ziele."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más lejos se ve más animado; por debajo de 0,05 hay riesgo de destinos en blanco."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus loin paraît plus animé ; en dessous de 0,05, risque de destinations vides."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大きいほどアニメーションが増え、0.05 未満では移動先が空になるおそれがあります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "값이 클수록 애니메이션이 늘고, 0.05 미만이면 대상 화면이 비어 보일 수 있습니다."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais longe parece mais animado; abaixo de 0,05 há risco de destinos em branco."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Больше — заметнее анимация; ниже 0,05 возможны пустые целевые экраны."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数值越大动画感越强；低于 0.05 可能导致目标空间空白。"
+          }
+        }
+      }
+    },
     "Future Value" : {
       "comment" : "Calculator answer badge",
       "localizations" : {
@@ -62057,6 +62213,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通用设置"
+          }
+        }
+      }
+    },
+    "Gesture travel" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestenweg"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recorrido del gesto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amplitude du geste"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ジェスチャーの移動量"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "제스처 이동 거리"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distância do gesto"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ход жеста"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手势行程"
           }
         }
       }
@@ -70347,6 +70555,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "安装…"
+          }
+        }
+      }
+    },
+    "Instant Spaces (Experimental)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sofort-Spaces (experimentell)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espacios instantáneos (experimental)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spaces instantanés (expérimental)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インスタント操作スペース（試験的）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "즉시 스페이스 (실험적)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espaços instantâneos (experimental)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мгновенные рабочие столы (экспериментально)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即时空间（实验性）"
           }
         }
       }
@@ -118851,6 +119111,58 @@
         }
       }
     },
+    "Space swipes need Accessibility access." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Space-Wischgesten benötigen Zugriff auf die Bedienungshilfen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los gestos de espacio necesitan acceso a Accesibilidad."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les gestes d’espace nécessitent l’accès Accessibilité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スペースのスワイプにはアクセシビリティへのアクセスが必要です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스페이스 스와이프에는 손쉬운 사용 접근 권한이 필요합니다."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os gestos de espaço precisam de acesso à Acessibilidade."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для жестов рабочими столами нужен Универсальный доступ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空间滑动手势需要辅助功能权限。"
+          }
+        }
+      }
+    },
     "Spaces" : {
       "comment" : "Window command group: macOS Spaces (Mission Control desktops)",
       "localizations" : {
@@ -121018,6 +121330,58 @@
         }
       }
     },
+    "Swipe to switch Spaces" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Wechseln der Spaces wischen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deslizar para cambiar de espacio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balayer pour changer de Space"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スワイプで操作スペースを切り替える"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스와이프로 스페이스 전환"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deslizar para alternar espaços"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переключать рабочие столы свайпом"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻扫以切换空间"
+          }
+        }
+      }
+    },
     "Switch AI model  ⌘P" : {
       "localizations" : {
         "de" : {
@@ -121170,6 +121534,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "切换房间"
+          }
+        }
+      }
+    },
+    "Switch Spaces instantly" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spaces sofort wechseln"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar de espacio al instante"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changer de Space instantanément"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作スペースを即座に切り替える"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스페이스 즉시 전환"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alternar espaços instantaneamente"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мгновенно переключать рабочие столы"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即时切换空间"
           }
         }
       }
@@ -132647,6 +133063,58 @@
         }
       }
     },
+    "Three-finger swipes land instantly too." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wischgesten mit drei Fingern wechseln ebenfalls sofort."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los gestos de tres dedos también cambian al instante."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les gestes à trois doigts changent aussi instantanément."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 本指のスワイプも即座に切り替わります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "세 손가락 스와이프도 즉시 전환됩니다."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os gestos de três dedos também alternam instantaneamente."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свайпы тремя пальцами тоже переключают мгновенно."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "三指轻扫也会即时切换。"
+          }
+        }
+      }
+    },
     "Ticked models appear in the model picker. The default model always does; choose it on the AI pane." : {
       "localizations" : {
         "de" : {
@@ -141396,24 +141864,6 @@
     },
     "Uses one of your %lld free resets. Your 5-hour and weekly limits start over." : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Uses your only free reset. Your 5-hour and weekly limits start over."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Uses one of your %lld free resets. Your 5-hour and weekly limits start over."
-                }
-              }
-            }
-          }
-        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -141432,19 +141882,37 @@
             }
           }
         },
-        "es" : {
+        "en" : {
           "variations" : {
             "plural" : {
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Usa tu único restablecimiento gratuito. Tus límites de 5 horas y semanal empiezan de nuevo."
+                  "value" : "Uses your only free reset. Your 5-hour and weekly limits start over."
                 }
               },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Uses one of your %lld free resets. Your 5-hour and weekly limits start over."
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "Usa uno de tus %lld de restablecimientos gratuitos. Tus límites de 5 horas y semanal empiezan de nuevo."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usa tu único restablecimiento gratuito. Tus límites de 5 horas y semanal empiezan de nuevo."
                 }
               },
               "other" : {
@@ -141459,16 +141927,16 @@
         "fr" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Utilise votre seule réinitialisation gratuite. Vos limites de 5 heures et hebdomadaire repartent de zéro."
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "Utilise l’une de vos %lld de réinitialisations gratuites. Vos limites de 5 heures et hebdomadaire repartent de zéro."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Utilise votre seule réinitialisation gratuite. Vos limites de 5 heures et hebdomadaire repartent de zéro."
                 }
               },
               "other" : {
@@ -141507,16 +141975,16 @@
         "pt" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Usa sua única redefinição gratuita. Seus limites de 5 horas e semanal recomeçam."
-                }
-              },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "Usa uma das suas %lld de redefinições gratuitas. Seus limites de 5 horas e semanal recomeçam."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usa sua única redefinição gratuita. Seus limites de 5 horas e semanal recomeçam."
                 }
               },
               "other" : {
@@ -141531,12 +141999,6 @@
         "ru" : {
           "variations" : {
             "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Будет использован ваш единственный бесплатный сброс. Лимиты на 5 часов и на неделю начнутся заново."
-                }
-              },
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -141547,6 +142009,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "Будет использован один из %lld бесплатных сбросов. Лимиты на 5 часов и на неделю начнутся заново."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Будет использован ваш единственный бесплатный сброс. Лимиты на 5 часов и на неделю начнутся заново."
                 }
               },
               "other" : {
@@ -150637,58 +151105,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "⌘↵ 存储。"
-          }
-        }
-      }
-    },
-    "A notice when a limit reaches 80 or 95 percent, and when a nearly spent one resets." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ein Hinweis, wenn ein Limit 80 oder 95 Prozent erreicht und wenn ein fast aufgebrauchtes zurückgesetzt wird."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un aviso cuando un límite llega al 80 o al 95 por ciento, y cuando uno casi agotado se restablece."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Une notification lorsqu’une limite atteint 80 ou 95 pour cent, et lorsqu’une limite presque épuisée est réinitialisée."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上限が80パーセントまたは95パーセントに達したとき、およびほぼ使い切った上限がリセットされたときに通知します。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "한도가 80퍼센트 또는 95퍼센트에 도달했을 때와 거의 소진된 한도가 재설정되었을 때 알립니다."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Um aviso quando um limite atinge 80 ou 95 por cento, e quando um quase esgotado é redefinido."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Уведомление, когда лимит достигает 80 или 95 процентов, и когда почти исчерпанный лимит сбрасывается."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "限额用量达到百分之八十或百分之九十五时，以及即将用完的限额重置时发出提醒。"
           }
         }
       }

@@ -136,6 +136,7 @@ Where a number has a special case, the case is a word:
 | `calendar.menuBarUpcomingEvents`        | `"today"`, or 2, 5, 10, 30 minutes before                                   |
 | `calendar.hideCurrentEventAfterMinutes` | `"never"`, 0 (as it starts), 5, 10, 30                                      |
 | `windowManagement.gap`                  | 0 to 64                                                                     |
+| `windowManagement.swipeTravel`          | 0.05 to 1.0                                                                 |
 | `snippets.folder`, `notes.folder`       | an absolute or `~/` path, or `null` for Application Support                 |
 
 On first launch, `general.language` is set to the primary system language if supported, otherwise

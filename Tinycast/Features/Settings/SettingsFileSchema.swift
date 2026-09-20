@@ -139,6 +139,12 @@ enum SettingsFileSchema {
         case .windowKeepsProportions: return bind(settings, \.windowKeepsProportions)
         case .windowLayoutsShowInLauncher: return bind(settings, \.windowLayoutsShowInLauncher)
         case .windowRoomsShowInLauncher: return bind(settings, \.windowRoomsShowInLauncher)
+        case .instantSpacesEnabled: return bind(settings, \.instantSpacesEnabled)
+        case .spaceSwipeToSwitch: return bind(settings, \.spaceSwipeToSwitch)
+        case .spaceSwitchTravel:
+            return bind(settings, \.spaceSwitchTravel) {
+                $0.isFinite ? SpaceGesture.clampedTravel($0) : nil
+            }
         case .windowShortcuts: return windowManagement.commandShortcutsBinding(for: key)
         case .windowAliases: return windowManagement.commandAliasesBinding(for: key)
         case .customWindowSizes: return windowManagement.customSizesBinding(for: key)

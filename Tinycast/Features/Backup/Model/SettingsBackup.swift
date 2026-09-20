@@ -76,6 +76,9 @@ struct SettingsBackup: Codable {
         var windowKeepsProportions: Bool?
         var windowLayoutsShowInLauncher: Bool?
         var windowRoomsShowInLauncher: Bool?
+        var instantSpacesEnabled: Bool?
+        var spaceSwipeToSwitch: Bool?
+        var spaceSwitchTravel: Double?
         // Carried, unlike `snippetsEnabled`: opening a link grants no permission class of its own.
         var quicklinksEnabled: Bool?
         var quicklinksShowInLauncher: Bool?

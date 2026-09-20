@@ -641,6 +641,21 @@ final class AppSettings {
         }
     }
 
+    /// Experimental master switch for instant Space switching; off means the classic path.
+    var instantSpacesEnabled: Bool {
+        didSet { defaults.set(instantSpacesEnabled, forKey: Key.instantSpacesEnabled.rawValue) }
+    }
+
+    /// Three-finger swipes switch Spaces too, but only while the master switch is on.
+    var spaceSwipeToSwitch: Bool {
+        didSet { defaults.set(spaceSwipeToSwitch, forKey: Key.spaceSwipeToSwitch.rawValue) }
+    }
+
+    /// How far the synthetic swipe travels; lower reads as a cut, higher as a slide.
+    var spaceSwitchTravel: Double {
+        didSet { defaults.set(spaceSwitchTravel, forKey: Key.spaceSwitchTravel.rawValue) }
+    }
+
     /// Off means fully off: no launcher entries and no registered shortcut.
     var quicklinksEnabled: Bool {
         didSet { defaults.set(quicklinksEnabled, forKey: Key.quicklinksEnabled.rawValue) }
@@ -789,6 +804,9 @@ final class AppSettings {
         case .windowKeepsProportions: adopt(\.windowKeepsProportions, from: stored)
         case .windowLayoutsShowInLauncher: adopt(\.windowLayoutsShowInLauncher, from: stored)
         case .windowRoomsShowInLauncher: adopt(\.windowRoomsShowInLauncher, from: stored)
+        case .instantSpacesEnabled: adopt(\.instantSpacesEnabled, from: stored)
+        case .spaceSwipeToSwitch: adopt(\.spaceSwipeToSwitch, from: stored)
+        case .spaceSwitchTravel: adopt(\.spaceSwitchTravel, from: stored)
         case .quicklinksEnabled: adopt(\.quicklinksEnabled, from: stored)
         case .quicklinksShowInLauncher: adopt(\.quicklinksShowInLauncher, from: stored)
         case .quicklinkOpensNewWindow: adopt(\.quicklinkOpensNewWindow, from: stored)
@@ -1084,6 +1102,12 @@ final class AppSettings {
         windowRoomsShowInLauncher =
             defaults.object(forKey: Key.windowRoomsShowInLauncher.rawValue) == nil
             || defaults.bool(forKey: Key.windowRoomsShowInLauncher.rawValue)
+        instantSpacesEnabled = defaults.bool(forKey: Key.instantSpacesEnabled.rawValue)
+        spaceSwipeToSwitch =
+            defaults.object(forKey: Key.spaceSwipeToSwitch.rawValue) == nil
+            || defaults.bool(forKey: Key.spaceSwipeToSwitch.rawValue)
+        let storedTravel = defaults.object(forKey: Key.spaceSwitchTravel.rawValue) as? Double
+        spaceSwitchTravel = storedTravel.map(SpaceGesture.clampedTravel) ?? SpaceGesture.defaultTravel
         quicklinksEnabled = defaults.bool(forKey: Key.quicklinksEnabled.rawValue)
         quicklinksShowInLauncher =
             defaults.object(forKey: Key.quicklinksShowInLauncher.rawValue) == nil
