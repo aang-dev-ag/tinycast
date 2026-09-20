@@ -30,6 +30,13 @@ jobs:
       display_name: ${{ steps.meta.outputs.display_name }}
       bundle_id: ${{ steps.meta.outputs.bundle_id }}
     steps:
+      - name: Require the personal-fork branch
+        run: |
+          if [ "${GITHUB_REF}" != "refs/heads/personal-fork" ]; then
+            echo "::error::Releasing from '${GITHUB_REF}' — run this workflow from personal-fork."
+            exit 1
+          fi
+
       - uses: actions/checkout@v7
 
       - name: Select Xcode 26

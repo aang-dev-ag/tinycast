@@ -53,7 +53,7 @@ gate — it neither runs the harnesses nor builds the app, so the whole bar in
 ## Releasing
 
 `.github/workflows/release.yml` builds and publishes a DMG from GitHub Actions, no local machine
-needed. Run it from the **Actions** tab (`Release` → **Run workflow**) and pick:
+needed. Run it from the **personal-fork** branch (`Release` → **Use workflow from** → `personal-fork` → **Run workflow**) — the workflow refuses any other branch — and pick:
 
 - **channel** — `beta` or `stable`. Each builds a distinct app (`Tinycast Beta.app` / `Tinycast.app`)
   with its own bundle id, alongside the local `Tinycast Dev.app`. Beta gets an auto-incrementing
