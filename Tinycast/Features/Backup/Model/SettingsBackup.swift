@@ -65,6 +65,9 @@ struct SettingsBackup: Codable {
         var windowCycle: String?
         var windowLayoutsShowInLauncher: Bool?
         var windowRoomsShowInLauncher: Bool?
+        var instantSpacesEnabled: Bool?
+        var spaceSwipeToSwitch: Bool?
+        var spaceSwitchTravel: Double?
         // Carried, unlike `snippetsEnabled`: opening a link grants no permission class of its own.
         var quicklinksEnabled: Bool?
         var quicklinksShowInLauncher: Bool?
@@ -174,6 +177,9 @@ extension SettingsBackup {
             windowCycle: s.windowCycle.rawValue,
             windowLayoutsShowInLauncher: s.windowLayoutsShowInLauncher,
             windowRoomsShowInLauncher: s.windowRoomsShowInLauncher,
+            instantSpacesEnabled: s.instantSpacesEnabled,
+            spaceSwipeToSwitch: s.spaceSwipeToSwitch,
+            spaceSwitchTravel: s.spaceSwitchTravel,
             quicklinksEnabled: s.quicklinksEnabled,
             quicklinksShowInLauncher: s.quicklinksShowInLauncher,
             extensionsShowInLauncher: s.extensionsShowInLauncher,
@@ -468,6 +474,18 @@ extension SettingsBackup {
         }
         if let flag = s.windowRoomsShowInLauncher {
             settings.windowRoomsShowInLauncher = flag
+            count += 1
+        }
+        if let flag = s.instantSpacesEnabled {
+            settings.instantSpacesEnabled = flag
+            count += 1
+        }
+        if let flag = s.spaceSwipeToSwitch {
+            settings.spaceSwipeToSwitch = flag
+            count += 1
+        }
+        if let travel = s.spaceSwitchTravel, travel.isFinite {
+            settings.spaceSwitchTravel = SpaceGesture.clampedTravel(travel)
             count += 1
         }
         if let flag = s.quicklinksEnabled {

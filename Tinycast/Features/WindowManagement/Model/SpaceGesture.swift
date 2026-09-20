@@ -79,6 +79,37 @@ enum SpaceGesture {
         return fields
     }
 
+    /// The macOS 27 instant tables: travel replaces the nudge, the fling commits the paint.
+    static func instantFields(
+        phase: Phase, direction: SpaceDirection, travel: Double, naturalScrolling: Bool
+    ) -> [Field] {
+        let sign = postingSign(direction: direction, naturalScrolling: naturalScrolling)
+        let magnitude = clampedTravel(travel)
+        var fields = [
+            Field(raw: eventTypeField, value: .integer(dockControlEventType)),
+            Field(raw: hidTypeField, value: .integer(dockSwipeHIDType)),
+            Field(raw: phaseField, value: .integer(phase.rawValue)),
+            Field(raw: progressField, value: .double(sign * magnitude)),
+            Field(raw: motionField, value: .integer(horizontalMotion)),
+            Field(raw: positionXField, value: .double(positionX))
+        ]
+        guard phase == .ended else { return fields }
+        fields.append(Field(raw: velocityXField, value: .double(sign * instantVelocity)))
+        return fields
+    }
+
+    /// Below the measured floor the destination blanks, so the Service layer never posts it.
+    static func clampedTravel(_ travel: Double) -> Double {
+        guard travel.isFinite else { return defaultTravel }
+        return min(max(travel, minTravel), maxTravel)
+    }
+
+    /// Only the writer corrects; the reader stays unconditionally positive-for-right.
+    static func postingSign(direction: SpaceDirection, naturalScrolling: Bool) -> Double {
+        let base = direction == .next ? -1.0 : 1.0
+        return naturalScrolling ? base : -base
+    }
+
     // MARK: - IOHID payload
 
     /// The record header `CGEventCreateData` frames a field with: big-endian size, then tag and id.
@@ -102,6 +133,20 @@ enum SpaceGesture {
         return payload
     }
 
+    /// The instant payload carries travel and the commit fling, never the alias fields.
+    static func instantPayload(
+        phase: Phase, direction: SpaceDirection, travel: Double, naturalScrolling: Bool,
+        timestamp: UInt64
+    ) -> Data {
+        let sign = postingSign(direction: direction, naturalScrolling: naturalScrolling)
+        let carriesVelocity = phase == .ended
+        var payload = queueHeader(
+            timestamp: timestamp, eventCount: carriesVelocity ? 2 : 1)
+        payload.append(fluidRecord(phase: phase, progress: sign * clampedTravel(travel)))
+        guard carriesVelocity else { return payload }
+        payload.append(velocityRecord(x: sign * instantVelocity))
+        return payload
+    }
     /// 16.16 fixed point, floored to ±1 so a value too small to encode never lands on zero.
     static func fixed1616(_ value: Double) -> Int32 {
         let fixed = Int32(value * 65536)
@@ -166,6 +211,12 @@ enum SpaceGesture {
 
     static let payloadField: UInt32 = 4205
 
+    /// Our own output passes the tap back out on this tag, on either event type.
+    static let syntheticTag: Int64 = 0x4E53_5753
+    static let defaultTravel = 0.1
+    static let minTravel = 0.05
+    static let maxTravel = 1.0
+    static let instantVelocity = 9999.0
     private static let eventTypeField: UInt32 = 55
     private static let hidTypeField: UInt32 = 110
     private static let motionField: UInt32 = 123
