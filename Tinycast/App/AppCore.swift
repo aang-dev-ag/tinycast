@@ -33,6 +33,7 @@ final class AppCore {
     @ObservationIgnored private lazy var dictationKey = DictationKeyManager(hotKeys: hotKeys)
     let windowMover = WindowMover()
     let spaceSwitcher = SpaceSwitcher()
+    let spaceSwipeMonitor = SpaceSwipeMonitor()
     let inputSourceSwitcher = InputSourceSwitcher()
     let settings: AppSettings
     /// Mirrors settings into settings.json; nil while the Backup pane's switch is off.
@@ -362,6 +363,11 @@ final class AppCore {
             dictationKey.healthTicker = healthTicker
             hotKeys.modifierTapMonitor.healthTicker = healthTicker
             snippetListener.healthTicker = healthTicker
+            spaceSwipeMonitor.healthTicker = healthTicker
+            spaceSwipeMonitor.onSwipe = { [weak self] direction in
+                self?.windowCommandCoordinator.runSpaceSwitch(direction)
+            }
+            applyInstantSpaces()
 
             hotKeys.onTogglePalette = { [weak self] in self?.paletteCoordinator.togglePalette() }
             hotKeys.dictationEnabled = settings.dictationEnabled
@@ -673,6 +679,13 @@ final class AppCore {
             }, reproject: { $0.roomCoordinator.applyEnabled() })
         track(
             {
+                _ = $0.windowManagementEnabled
+                _ = $0.instantSpacesEnabled
+                _ = $0.spaceSwipeToSwitch
+                _ = $0.spaceSwitchTravel
+            }, reproject: { $0.applyInstantSpaces() })
+        track(
+            {
                 _ = $0.customCommandsEnabled
                 _ = $0.customCommandsShowInLauncher
             }, reproject: { $0.customCommandCoordinator.applyCustomCommandsPresence() })
@@ -912,6 +925,15 @@ final class AppCore {
     private func reportSettingsFileIssues(_ issues: [SettingsFileIssue]) {
         guard let summary = SettingsFileIssue.summary(issues) else { return }
         showMessage(summary, tone: .danger)
+    }
+
+    /// The gate's single owner: tap presence plus system configuration, and nothing else.
+    func applyInstantSpaces() {
+        let instantOn = settings.windowManagementEnabled && settings.instantSpacesEnabled
+        spaceSwipeMonitor.update(enabled: instantOn && settings.spaceSwipeToSwitch)
+        Task.detached(priority: .utility) {
+            SkyLightSpaces.applySystemConfiguration(enabled: instantOn)
+        }
     }
 
     // MARK: - Interruption
