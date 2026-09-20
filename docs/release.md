@@ -28,15 +28,10 @@ zip is produced with `ditto -c -k --keepParent --sequesterRsrc` — the only zip
 signature verifiable, which matters because the updater refuses any bundle whose signature does not
 prove it is ours.
 
-A stable release publishes two more from the `universal` job, `Tinycast-Universal-<version>.dmg` and
-`.zip`, built from the same commit at the same version and bundle id but with both slices. They are
-uploaded *after* the thin pair, which keeps the thin zip first in the asset list so builds predating
-architecture-aware selection keep choosing it.
-
 Three things a release must keep true, or the updater skips it:
 
 - **It carries a `.zip` asset this Mac can run.** A DMG-only release is not installable and is not
-  offered, and an Intel build is offered nothing rather than a thin arm64 zip.
+  offered.
 - **The tag parses as `vMAJOR.MINOR.PATCH` or `vMAJOR.MINOR.PATCH-beta.N`,** and agrees with the
   `prerelease` flag. A tag of any other shape is treated as mis-published and skipped.
 - **It is not a draft.**
@@ -75,14 +70,10 @@ it also bumps the matching cask in the tap and announces the release on Discord.
 dispatches the Website workflow, because the site reads the latest version and the
 [changelog](https://tinycast.dev/changelog/) from GitHub at build time.
 
-A stable run then fans out to a second job, `universal`, which rebuilds the same commit with
-`ARCHS="arm64 x86_64"` and attaches `Tinycast-Universal-<version>.dmg` / `.zip` to the release the
-first job created, then bumps `tinycast-universal`. macOS 26 is the last release that boots on Intel,
-and those Macs need both slices. Both jobs pin `ARCHS` explicitly and assert the slices on *every*
+The job pins `ARCHS` explicitly and asserts the slice on *every*
 shipping binary — the app, `ClipboardTextHelper` and `Tinycast Dictation`: trusting `ARCHS_STANDARD` is what
 shipped a thin arm64 build to Intel users once already, and it also keeps the Apple silicon download
-from silently gaining a slice it never needs. A thin helper inside a universal app is the quiet form
-of the same bug: the app boots on Intel and only clipboard OCR or dictation stops working.
+from silently gaining a slice it never needs.
 
 Channel builds override `TINYCAST_BUNDLE_IDENTIFIER`, not the target-wide `PRODUCT_BUNDLE_IDENTIFIER`.
 The Dictation helper derives its own identifier with a `.dictation` suffix; signature verification
@@ -117,13 +108,10 @@ pings `@everyone`.
 
 ### Homebrew tap automation
 
-Each job's final step rewrites the `version` + `sha256` of its cask (`tinycast`, `tinycast@beta` or
-`tinycast-universal`) in the [`homebrew-tinycast`](https://github.com/abue-ammar/homebrew-tinycast) tap
+Each job's final step rewrites the `version` + `sha256` of its cask (`tinycast` or
+`tinycast@beta`) in the [`homebrew-personal`](https://github.com/aang-dev-ag/homebrew-personal) tap
 and pushes. It needs a `HOMEBREW_TAP_TOKEN` repo secret — a fine-grained PAT with **Contents:
 read/write** on the tap repo. Without the secret the step logs a warning and skips; the release still
 publishes. The `sed` is anchored to `^  version` / `^  sha256`, so a cask's two-space indent on those
 lines is load-bearing.
 
-Both stable casks install `Tinycast.app` under `com.tinycast.app`, so they `conflicts_with` one
-another and Homebrew routes each Mac by `depends_on`: `tinycast` requires `arch: :arm64`, and
-`tinycast-universal` takes the Intel Macs.
