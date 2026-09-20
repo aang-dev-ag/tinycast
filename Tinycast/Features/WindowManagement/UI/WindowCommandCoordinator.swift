@@ -24,9 +24,7 @@ final class WindowCommandCoordinator {
     func runWindowCommand(id: WindowCommand.ID) {
         guard settings.windowManagementEnabled else { return }
         if let direction = SpaceDirection(id) {
-            // Restoring focus reactivates an app elsewhere, pulling its Space forward.
-            if paletteCoordinator.isVisible { paletteCoordinator.hidePalette(restoreFocus: false) }
-            spaceSwitcher.perform(direction)
+            runSpaceSwitch(direction)
             return
         }
         windowMover.perform(
@@ -34,6 +32,17 @@ final class WindowCommandCoordinator {
             cycle: settings.windowCycle)
     }
 
+    /// The one funnel for palette, hotkey and swipe; the gate branches here, nowhere else.
+    func runSpaceSwitch(_ direction: SpaceDirection) {
+        guard settings.windowManagementEnabled else { return }
+        // Restoring focus reactivates an app elsewhere, pulling its Space forward.
+        if paletteCoordinator.isVisible { paletteCoordinator.hidePalette(restoreFocus: false) }
+        if settings.instantSpacesEnabled {
+            spaceSwitcher.performInstant(direction, travel: settings.spaceSwitchTravel)
+        } else {
+            spaceSwitcher.perform(direction)
+        }
+    }
     /// The same funnel for a custom size, so the feature switch gates it identically.
     func runCustomWindowSize(id: UUID) {
         guard settings.windowManagementEnabled, let size = customSizes.size(id: id) else { return }

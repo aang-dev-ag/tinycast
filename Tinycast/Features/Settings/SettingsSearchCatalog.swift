@@ -429,7 +429,16 @@ enum SettingsSearchCatalog {
             keywords: ["custom", "size", "resize", "dimensions", "pixels", "points", "percent"]),
         .init(
             .windowManagementCustomSizes, "New Custom Size",
-            keywords: ["add", "create", "resize", "window size"])
+            keywords: ["add", "create", "resize", "window size"]),
+        .init(
+            .windowManagementInstantSpaces, "Switch Spaces instantly",
+            keywords: ["space", "spaces", "instant", "experimental", "animation"]),
+        .init(
+            .windowManagementInstantSpaces, "Swipe to switch Spaces",
+            keywords: ["space", "spaces", "swipe", "gesture", "trackpad"]),
+        .init(
+            .windowManagementInstantSpaces, "Gesture travel",
+            keywords: ["space", "spaces", "travel", "speed", "slide", "instant"])
     ]
 
     private static let clipboard: [SettingsSearchEntry] = [

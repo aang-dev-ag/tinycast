@@ -65,7 +65,10 @@ struct SpaceGestureTests {
         testPayloadShape()
         testPayloadValues()
         testRecordHeader()
-
+        testTravelClamp()
+        testPostingSign()
+        testInstantFields()
+        testInstantPayload()
         print("\(passes) passed, \(failures) failed")
         if failures > 0 { exit(1) }
     }
@@ -226,5 +229,106 @@ struct SpaceGestureTests {
             "a size past one byte splits across the big-endian pair")
         expectEqual(SpaceGesture.payloadField, 4205, "the payload rides in the raw IOHID field")
         expectEqual(SpaceGesture.dataVersion, [0, 0, 0, 2], "only serialization version 2 is spliced")
+    }
+
+    static func testTravelClamp() {
+        expectEqual(SpaceGesture.clampedTravel(0.1), 0.1, "travel passes through in range")
+        expectEqual(SpaceGesture.clampedTravel(0.05), 0.05, "the floor posts as-is")
+        expectEqual(SpaceGesture.clampedTravel(1.0), 1.0, "the ceiling posts as-is")
+        expectEqual(SpaceGesture.clampedTravel(0.02), 0.05, "below the floor clamps up")
+        expectEqual(SpaceGesture.clampedTravel(0.0), 0.05, "zero never posts")
+        expectEqual(SpaceGesture.clampedTravel(2.0), 1.0, "above the ceiling clamps down")
+        expectEqual(SpaceGesture.clampedTravel(.nan), 0.1, "non-finite travel falls back")
+        expectEqual(SpaceGesture.defaultTravel, 0.1, "the default reads as instant")
+        expectEqual(SpaceGesture.minTravel, 0.05, "the floor is the measured race edge")
+        expectEqual(SpaceGesture.maxTravel, 1.0, "the ceiling is the native slide")
+    }
+
+    static func testPostingSign() {
+        expectEqual(
+            SpaceGesture.postingSign(direction: .next, naturalScrolling: true), -1.0,
+            "next posts negative while scrolling is natural")
+        expectEqual(
+            SpaceGesture.postingSign(direction: .previous, naturalScrolling: true), 1.0,
+            "previous posts positive while natural")
+        expectEqual(
+            SpaceGesture.postingSign(direction: .next, naturalScrolling: false), 1.0,
+            "next posts positive while not natural")
+        expectEqual(
+            SpaceGesture.postingSign(direction: .previous, naturalScrolling: false), -1.0,
+            "previous posts negative while not natural")
+    }
+
+    static func testInstantFields() {
+        for travel in [0.05, 0.1, 1.0] {
+            for phase in SpaceGesture.Phase.allCases {
+                let next = SpaceGesture.instantFields(
+                    phase: phase, direction: .next, travel: travel, naturalScrolling: true)
+                expectEqual(integer(next, 55), 30, "instant stays a DockControl event")
+                expectEqual(integer(next, 110), 23, "instant stays a dock swipe")
+                expectEqual(integer(next, 132), phase.rawValue, "instant carries the phase")
+                expectEqual(integer(next, 123), 1, "instant stays horizontal")
+                expectEqual(double(next, 125), 0.1, "instant starts at a nonzero position")
+                expectEqual(double(next, 124), -travel, "next posts negative travel while natural")
+                expect(value(next, 134) == nil, "instant writes no phase alias")
+                expect(value(next, 138) == nil, "instant writes no zoom delta")
+                expect(value(next, 169) == nil, "instant writes no process alias")
+                expect(value(next, 130) == nil, "instant writes no Y velocity")
+                expect(value(next, 4205) == nil, "the payload is never an ordinary field")
+            }
+        }
+        expectEqual(
+            double(
+                SpaceGesture.instantFields(
+                    phase: .began, direction: .next, travel: 0.1, naturalScrolling: false), 124), 0.1,
+            "next posts positive while not natural")
+        expectEqual(
+            double(
+                SpaceGesture.instantFields(
+                    phase: .ended, direction: .next, travel: 0.1, naturalScrolling: true), 129), -9999,
+            "only ended flings at the commit velocity")
+        expect(
+            value(
+                SpaceGesture.instantFields(
+                    phase: .began, direction: .next, travel: 0.1, naturalScrolling: true), 129) == nil,
+            "began carries no velocity")
+        expect(
+            value(
+                SpaceGesture.instantFields(
+                    phase: .changed, direction: .next, travel: 0.1, naturalScrolling: true), 129) == nil,
+            "changed carries no velocity")
+        expectEqual(
+            double(
+                SpaceGesture.instantFields(
+                    phase: .ended, direction: .previous, travel: 0.1, naturalScrolling: true), 129), 9999,
+            "previous flings positive while natural")
+        expectEqual(
+            double(
+                SpaceGesture.instantFields(
+                    phase: .ended, direction: .next, travel: 0.02, naturalScrolling: true), 124), -0.05,
+            "below-floor travel posts clamped")
+    }
+
+    static func testInstantPayload() {
+        for phase in [SpaceGesture.Phase.began, .changed] {
+            let payload = SpaceGesture.instantPayload(
+                phase: phase, direction: .next, travel: 0.1, naturalScrolling: true, timestamp: 7)
+            expectEqual(payload.count, 68, "instant \(phase) is a header plus a fluid record")
+            expectEqual(read(payload, at: 24, as: UInt32.self), 1, "instant \(phase) reports one event")
+        }
+        let ended = SpaceGesture.instantPayload(
+            phase: .ended, direction: .next, travel: 0.1, naturalScrolling: true, timestamp: 7)
+        expectEqual(ended.count, 96, "instant ended appends a velocity record")
+        expectEqual(
+            read(ended, at: 64, as: Int32.self), SpaceGesture.fixed1616(-0.1),
+            "instant progress carries signed travel")
+        expectEqual(
+            read(ended, at: 84, as: Int32.self), -9999 * 65_536, "instant flings at the commit velocity")
+        let clamped = SpaceGesture.instantPayload(
+            phase: .ended, direction: .next, travel: 0.02, naturalScrolling: true, timestamp: 7)
+        expectEqual(
+            read(clamped, at: 64, as: Int32.self), SpaceGesture.fixed1616(-0.05),
+            "instant payload clamps travel too")
+        expectEqual(SpaceGesture.syntheticTag, 0x4E53_5753, "companions tag our own output")
     }
 }

@@ -482,6 +482,21 @@ final class AppSettings {
         didSet { defaults.set(windowCycle.rawValue, forKey: Key.windowCycle.rawValue) }
     }
 
+    /// Experimental master switch for instant Space switching; off means the classic path.
+    var instantSpacesEnabled: Bool {
+        didSet { defaults.set(instantSpacesEnabled, forKey: Key.instantSpacesEnabled.rawValue) }
+    }
+
+    /// Three-finger swipes switch Spaces too, but only while the master switch is on.
+    var spaceSwipeToSwitch: Bool {
+        didSet { defaults.set(spaceSwipeToSwitch, forKey: Key.spaceSwipeToSwitch.rawValue) }
+    }
+
+    /// How far the synthetic swipe travels; lower reads as a cut, higher as a slide.
+    var spaceSwitchTravel: Double {
+        didSet { defaults.set(spaceSwitchTravel, forKey: Key.spaceSwitchTravel.rawValue) }
+    }
+
     /// Off means fully off, down to a still-registered shortcut opening nothing.
     var quicklinksEnabled: Bool {
         didSet { defaults.set(quicklinksEnabled, forKey: Key.quicklinksEnabled.rawValue) }
@@ -680,6 +695,12 @@ final class AppSettings {
         windowLayoutsShowInLauncher =
             defaults.object(forKey: Key.windowLayoutsShowInLauncher.rawValue) == nil
             || defaults.bool(forKey: Key.windowLayoutsShowInLauncher.rawValue)
+        instantSpacesEnabled = defaults.bool(forKey: Key.instantSpacesEnabled.rawValue)
+        spaceSwipeToSwitch =
+            defaults.object(forKey: Key.spaceSwipeToSwitch.rawValue) == nil
+            || defaults.bool(forKey: Key.spaceSwipeToSwitch.rawValue)
+        let storedTravel = defaults.object(forKey: Key.spaceSwitchTravel.rawValue) as? Double
+        spaceSwitchTravel = storedTravel.map(SpaceGesture.clampedTravel) ?? SpaceGesture.defaultTravel
         quicklinksEnabled = defaults.bool(forKey: Key.quicklinksEnabled.rawValue)
         quicklinksShowInLauncher =
             defaults.object(forKey: Key.quicklinksShowInLauncher.rawValue) == nil

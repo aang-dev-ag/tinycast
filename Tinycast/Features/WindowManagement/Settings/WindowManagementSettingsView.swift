@@ -19,6 +19,7 @@ struct WindowManagementSettingsView: View {
 
             Group {
                 options
+                instantSpaces
                 WindowLayoutsSection(
                     onEdit: { editor = WindowLayoutEditRequest(layout: $0) },
                     onDelete: { pendingDeletion = $0 })
@@ -84,6 +85,39 @@ struct WindowManagementSettingsView: View {
         }
     }
 
+    private var instantSpaces: some View {
+        @Bindable var settings = settings
+        return Section {
+            Toggle(isOn: $settings.instantSpacesEnabled) {
+                SettingsRowTitle(.windowManagementInstantSpaces, "Switch Spaces instantly")
+                Text("Drives undocumented system behavior and may blank destinations on some Macs.")
+            }
+            Toggle(isOn: $settings.spaceSwipeToSwitch) {
+                SettingsRowTitle(.windowManagementInstantSpaces, "Swipe to switch Spaces")
+                Text("Three-finger swipes land instantly too.")
+            }
+            .settingsEnabled(settings.instantSpacesEnabled)
+            SettingsRow(title: "Gesture travel", anchor: .windowManagementInstantSpaces) {
+                Slider(value: $settings.spaceSwitchTravel, in: 0.05...1.0, step: 0.05)
+                    .labelsHidden()
+                    .accessibilityLabel("Gesture travel")
+                    .frame(width: Theme.Size.paletteTransparencySlider)
+            }
+            .settingsEnabled(settings.instantSpacesEnabled)
+            if settings.instantSpacesEnabled, core.spaceSwipeMonitor.needsAccessibility {
+                LabeledContent {
+                    Button("Grant Access…") { Permissions.openAccessibilitySettings() }
+                } label: {
+                    Label("Space swipes need Accessibility access.", systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(.orange)
+                }
+            }
+        } header: {
+            SettingsSectionHeader(.windowManagementInstantSpaces)
+        } footer: {
+            Text("Further reads more animated; below 0.05 risks blank destinations.")
+        }
+    }
     /// One section per catalog group, so the sidebar's own grouping carries the headings.
     private var commands: some View {
         ForEach(WindowCommandCatalog.grouped(), id: \.group) { section in

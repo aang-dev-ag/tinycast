@@ -23,6 +23,7 @@ final class AppCore {
     let hyperKeyTap = HyperKeyTap()
     let windowMover = WindowMover()
     let spaceSwitcher = SpaceSwitcher()
+    let spaceSwipeMonitor = SpaceSwipeMonitor()
     let inputSourceSwitcher = InputSourceSwitcher()
     let settings: AppSettings
     @ObservationIgnored private var appearanceObservation: NSKeyValueObservation?
@@ -299,6 +300,11 @@ final class AppCore {
             hyperKeyTap.healthTicker = healthTicker
             hotKeys.doubleTapMonitor.healthTicker = healthTicker
             snippetListener.healthTicker = healthTicker
+            spaceSwipeMonitor.healthTicker = healthTicker
+            spaceSwipeMonitor.onSwipe = { [weak self] direction in
+                self?.windowCommandCoordinator.runSpaceSwitch(direction)
+            }
+            applyInstantSpaces()
 
             hotKeys.onTogglePalette = { [weak self] in self?.paletteCoordinator.togglePalette() }
             hotKeys.onRunCommand = { [weak self] id in self?.launcherCoordinator.runCommand(id) }
@@ -535,6 +541,13 @@ final class AppCore {
             }, reproject: { $0.windowLayoutCoordinator.applyWindowLayoutsPresence() })
         track(
             {
+                _ = $0.windowManagementEnabled
+                _ = $0.instantSpacesEnabled
+                _ = $0.spaceSwipeToSwitch
+                _ = $0.spaceSwitchTravel
+            }, reproject: { $0.applyInstantSpaces() })
+        track(
+            {
                 _ = $0.customCommandsEnabled
                 _ = $0.customCommandsShowInLauncher
             }, reproject: { $0.customCommandCoordinator.applyCustomCommandsPresence() })
@@ -636,6 +649,15 @@ final class AppCore {
     private func applyWindowCommandsPresence() {
         let visible = settings.windowManagementEnabled && settings.windowManagementShowInLauncher
         appIndex.setWindowCommandsVisible(visible)
+    }
+
+    /// The gate's single owner: tap presence plus system configuration, and nothing else.
+    func applyInstantSpaces() {
+        let instantOn = settings.windowManagementEnabled && settings.instantSpacesEnabled
+        spaceSwipeMonitor.update(enabled: instantOn && settings.spaceSwipeToSwitch)
+        Task.detached(priority: .utility) {
+            SkyLightSpaces.applySystemConfiguration(enabled: instantOn)
+        }
     }
 
     // MARK: - Interruption
