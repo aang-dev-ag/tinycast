@@ -4,6 +4,9 @@ By default, Tinycast checks GitHub Releases once a day and offers the newest rel
 channel in a pill in the palette, then installs it at the next relaunch or quit. There is no Sparkle
 and no appcast: the release feed the website already reads is the feed the app reads.
 
+This fork publishes to its own repository, so `ReleaseFeed.repository` names `aang-dev-ag/tinycast`;
+every other rule here is upstream's, unchanged.
+
 ## Invariants
 
 - **Tinycast installs its own updates, and Homebrew stays out of the way.** Every cask declares
@@ -14,10 +17,9 @@ uninstall` and `brew list` keep working unchanged.
 - **The archive is a zip, never the DMG.** A zip expands with `ditto`; a DMG would have to be mounted,
   which means a volume, a Spotlight handle and a detach that can fail. A release published without a
   zip is not installable and is not offered.
-- **The zip is chosen by architecture.** A stable release carries a thin arm64 zip and a
-  `-Universal-` one. Intel takes the universal zip and is offered _nothing_ if it is missing, since a
-  thin build would install and then refuse to launch; Apple silicon prefers the thin zip and falls
-  back to universal.
+- **The zip is chosen by architecture, and this fork ships one.** Every release here carries a thin
+  arm64 zip and no `-Universal-` pair, so Apple silicon installs it and an Intel Mac is offered
+  _nothing_ — a thin build would install and then refuse to launch.
 - **A downloaded update is never quarantined.** macOS sets that flag for sandboxed downloaders and
   for apps that opt in with `LSFileQuarantineEnabled`, and Tinycast is neither. `Quarantine` checks
   anyway, and an app that still carries the flag is refused rather than installed.
@@ -26,9 +28,11 @@ uninstall` and `brew list` keep working unchanged.
   valid Ed25519 signature from the release key in `TinycastUpdatePublicKey` and the bundle is
   Developer ID signed by any team, or it satisfies the running copy's own designated requirement.
   Nothing is pinned: a new Apple team still updates through the key, and a new key through an
-  unchanged identity. Changing both in one release strands everyone. `notarized` is deliberately not
-  checked — it resolves the ticket through `syspolicyd` or the network, so an offline Mac would
-  refuse a bundle the signature already proves is ours.
+  unchanged identity. This fork publishes no `.sig`, so its self-signed builds travel the second
+  path alone: the same leaf certificate on both sides, which is why that identity must never rotate
+  ([signing.md](../signing.md#update-trust)). `notarized` is deliberately not checked — it resolves
+  the ticket through `syspolicyd` or the network, so an offline Mac would refuse a bundle the
+  signature already proves is ours.
 - **A build only ever updates within its own channel.** The channels are separate bundle ids installed
   side by side; crossing would mean installing a different app. `com.tinycast.app.dev` never updates
   at all, and does not advertise the command.
@@ -91,10 +95,6 @@ prerelease sorts below the release it leads to, and `beta.10` above `beta.9`. Ev
 to nil, so an off-shape tag can never be offered as an update. A release whose tag disagrees with
 its `prerelease` flag is treated as mis-published and skipped.
 
-The Intel build is _not_ a channel. It shares the stable tag, version, bundle id and signature, so it
-resolves to `.stable` like any other; `ReleaseArchitecture` picks its asset, and nothing about
-identity changes.
-
 ## Checking
 
 `UpdateCheckStore` copies `CurrencyRateStore`: a private `.ephemeral`, `urlCache = nil` session, a
@@ -127,12 +127,13 @@ One route, whatever the install came from:
 
 1. Stream the zip into `~/Library/Caches/<bundle-id>/Updates/`, with real byte progress and a Cancel
    that actually aborts the transfer, then fetch its `.sig` and check it against the release key.
+   This fork publishes no `.sig`, and a failed fetch is logged and treated as absent.
 2. `ditto -x -k` it into a staging folder, and take whatever `.app` lands there — the bundle is named
    for its channel, so it is `Tinycast Beta.app` on beta.
 3. Check quarantine natively; clear it if somehow present, and refuse the update if it survives.
 4. Verify the bundle id, the version, and that the code signature is valid and proves the bundle is
    ours — through the release key, or through the running copy's own designated requirement — and
-   record its code-directory hash. A `.sig` that fails to download is logged and treated as absent.
+   record its code-directory hash.
 5. Offer Relaunch. At quit, by Relaunch or otherwise, the staged bundle is checked again against
    that hash, so a copy changed since staging is discarded, and `FileManager.replaceItemAt` swaps
    it in. The staging folder is on the same volume as `/Applications`, which is what lets this be
@@ -153,10 +154,8 @@ setting, clipboard entry, note or snippet is affected by an update, by `brew upg
 ## Releasing into it
 
 `.github/workflows/release.yml` publishes two assets from one build: the DMG people download by hand
-and the cask installs, and `Tinycast-<version>.zip` for the updater. A stable run adds a
-`Tinycast-Universal-<version>` pair from its `universal` job, uploaded second so the thin zip stays
-first in the asset list — builds predating architecture-aware selection take whichever comes first.
-The zip is made with
+and the cask installs, and `Tinycast-<version>.zip` for the updater. There is no `universal` job and
+no `.sig`, because every build here is a thin arm64 self-signed one. The zip is made with
 
 ```sh
 ditto -c -k --keepParent --sequesterRsrc "$APP" "dist/$ZIP_FILE"
@@ -170,6 +169,6 @@ then `<!-- tinycast:install -->`, then the install text. The app does not read t
 release wants the website's changelog to show has to go above that marker — see
 [release.md](../release.md#release-notes).
 
-**Every cask must declare `auto_updates true`**, in homebrew/cask and in the tap. Without it Homebrew
+**Both casks must declare `auto_updates true`**, in the `homebrew-personal` tap. Without it Homebrew
 compares its Caskroom receipt against the cask version, sees a self-updated app as outdated forever,
 and re-installs over it on the next `brew upgrade`.
