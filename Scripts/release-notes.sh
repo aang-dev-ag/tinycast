@@ -5,7 +5,7 @@ set -euo pipefail
 BODY_OUT="${1:?usage: release-notes.sh <body.md> <discord.md>}"
 DISCORD_OUT="${2:?usage: release-notes.sh <body.md> <discord.md>}"
 
-REPO="${REPO:-abue-ammar/tinycast}"
+REPO="${REPO:-aang-dev-ag/tinycast}"
 CHANNEL="${CHANNEL:?CHANNEL is required (beta|stable)}"
 TAG="${TAG:?TAG is required, e.g. v0.9.13-beta.61}"
 SHA="${SHA:-$(git rev-parse HEAD)}"
@@ -51,8 +51,10 @@ CHANGELOG="$(printf '%s\n' "$GENERATED" | sed -E \
     printf 'Built from %s.' "$SHA"
     if [ -n "$COMPARE_URL" ]; then printf ' [Full changelog](%s)' "$COMPARE_URL"; fi
     printf '\n\n'
-    printf 'Install via Homebrew, or open the DMG below and drag %s to Applications:\n' "$DISPLAY_NAME"
-    printf '```sh\nbrew install --cask %s\n```\n' "$CASK"
+    printf '%s\n' "**Recommended:** install via Homebrew — it clears the quarantine flag automatically on every install and update, so there's nothing to run by hand:"
+    printf '```sh\nbrew trust --tap aang-dev-ag/personal\nbrew install --cask aang-dev-ag/personal/%s\n```\n' "$CASK"
+    printf '%s\n' "This build is self-signed. If you download the DMG directly instead of using Homebrew, macOS will refuse to open it until you clear the quarantine flag once:"
+    printf '```sh\nxattr -dr com.apple.quarantine "/Applications/%s.app"\n```\n' "$DISPLAY_NAME"
 } > "$BODY_OUT"
 
 printf '%s\n' "$CHANGELOG" | awk -v budget="$DISCORD_BUDGET" -v bullets="$DISCORD_BULLETS" '
