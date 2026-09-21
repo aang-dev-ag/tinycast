@@ -151,6 +151,24 @@ A custom size shares the window commands' `AppEntry.Kind`, their launcher sectio
 `windowManagementShowInLauncher` switch, the way custom Quick Actions share the shipped four's:
 `WindowCommandCatalog` claims an entry first, and `CustomWindowSize.id(fromEntryID:)` the rest.
 
+## Shortcut presets
+
+A **shortcut preset** loads another app's window shortcuts in one choice: the `⌃⌥`
+defaults of Rectangle and Magnet, or the `⌘⌥` defaults of Spectacle. Rectangle's tables are
+transcribed from its own default tables into `Model/WindowCommandPresets.swift`; Magnet's from its
+published defaults. The section sits below the custom sizes in the Window
+Management pane, and applying one asks first through `DialogController` — a preset replaces the
+managed bindings, so it is destructive by confirm rather than a merge.
+
+- **Every entry goes through `HotKeyManager.setBinding`**, so Carbon registration, double-tap
+  sync and the bound-ID indexes stay on the one path the recorder uses.
+- **A chord another action already holds is skipped, never clobbered**, following the
+  `retargetHyperBindings` precedent; the report names how many were skipped.
+- **Actions the preset doesn't cover keep their bindings**, and the tables live in a
+  Foundation-only file so `window-command-preset-test` compiles the shipped sources.
+- **Clear all removes every window-command shortcut after the same confirm**, leaving custom
+  sizes and layouts untouched; with nothing bound it says so instead of asking.
+
 ## Cycling and Restore
 
 Both reduce to one question — _has the user moved this window themselves since our last action?_ — so

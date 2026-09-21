@@ -74,6 +74,7 @@ extension SettingsAnchor {
         tab: .windowManagement, title: "Layout Commands")
     static let windowManagementOptions = Self(tab: .windowManagement, title: "Options")
     static let windowManagementCustomSizes = Self(tab: .windowManagement, title: "Custom Sizes")
+    static let windowManagementPresets = Self(tab: .windowManagement, title: "Shortcut Presets")
     static let windowManagementInstantSpaces = Self(
         tab: .windowManagement, title: "Instant Spaces (Experimental)")
 

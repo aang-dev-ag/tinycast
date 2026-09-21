@@ -28,6 +28,7 @@ struct WindowManagementSettingsView: View {
                 CustomWindowSizesSection(onEdit: {
                     customSizeEdit = CustomWindowSizeEditRequest(size: $0)
                 })
+                WindowCommandPresetSection()
                 commands
             }
             .settingsEnabled(settings.windowManagementEnabled)
