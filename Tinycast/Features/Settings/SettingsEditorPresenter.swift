@@ -387,6 +387,7 @@ extension View {
             .environment(core.roomCoordinator)
             .environment(core.customWindowSizes)
             .environment(core.customWindowSizeCoordinator)
+            .environment(core.windowCommandCoordinator)
             .environment(core.calendarStore)
             .environment(core.aiSettings)
             .environment(core.mcpSettings)
