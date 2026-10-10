@@ -419,6 +419,8 @@ and every shortcut stays editable afterwards.
 - **Choose, then Apply.** The pop-up holds a choice that is never stored, and Apply stays disabled
   until one is made, and while `WindowShortcutPreset.matching` reports the chosen preset as fully
   set (other commands don't count), so one edited or cleared key re-enables it.
+- **Clear all sits below the pop-up.** It removes every window-command shortcut behind the
+  same confirm, leaving custom sizes and layouts untouched; with nothing bound it says so instead.
 
 ## Wiring
 

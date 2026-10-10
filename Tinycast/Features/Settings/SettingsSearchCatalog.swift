@@ -479,7 +479,10 @@ enum SettingsSearchCatalog {
             keywords: ["next display", "previous display", "monitor", "scale", "resize"]),
         .init(
             .windowManagementOptions, "Shortcut preset",
-            keywords: ["rectangle", "magnet", "spectacle", "defaults", "import", "shortcuts"]),
+            keywords: [
+                "rectangle", "magnet", "spectacle", "defaults", "import", "shortcuts", "preset",
+                "migrate"
+            ]),
         .init(
             group: .windowManagementOptions, "Window commands",
             keywords: ["shortcut", "alias", "left half", "maximize", "center"]),
@@ -521,6 +524,9 @@ enum SettingsSearchCatalog {
         .init(
             .windowManagementCustomSizes, "New Custom Size",
             keywords: ["add", "create", "resize", "window size"]),
+        .init(
+            .windowManagementPresets, "Clear all shortcuts",
+            keywords: ["clear", "remove", "delete", "unbind", "reset shortcuts"]),
         .init(
             .windowManagementInstantSpaces, "Switch Spaces instantly",
             keywords: ["space", "spaces", "instant", "experimental", "animation"]),

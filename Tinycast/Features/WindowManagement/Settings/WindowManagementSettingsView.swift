@@ -122,6 +122,16 @@ struct WindowManagementSettingsView: View {
                 SettingsRowTitle(.windowManagementOptions, "Shortcut preset")
                 Text("Fills in another app's shortcuts. Others stay as they are.")
             }
+
+            SettingsRow(
+                title: "Clear all shortcuts",
+                subtitle: "Removes every window-management shortcut.",
+                anchor: .windowManagementPresets
+            ) {
+                Button("Clear…") {
+                    Task { await core.windowShortcutPresetCoordinator.clearAllShortcuts() }
+                }
+            }
         } header: {
             SettingsSectionHeader(.windowManagementOptions)
         }
