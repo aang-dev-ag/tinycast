@@ -13,6 +13,7 @@ struct AppEntry: Identifiable, Hashable, Sendable {
         case windowLayout
         case windowRoom
         case quicklink
+        case session
         case appleShortcut
         case extensionCommand
         case meeting
@@ -74,6 +75,11 @@ struct AppEntry: Identifiable, Hashable, Sendable {
                     label: "Quicklink", sectionTitle: "Quicklinks",
                     openVerb: "Open Quicklink", canHideFromSearch: false,
                     canRevealInFinder: false, canDragOut: false, isSymbolIcon: true, rankPriority: 2)
+            case .session:
+                return KindDescriptor(
+                    label: "Session", sectionTitle: "Sessions",
+                    openVerb: "Restore Session", canHideFromSearch: true,
+                    canRevealInFinder: false, canDragOut: false, isSymbolIcon: true, rankPriority: 3)
             case .appleShortcut:
                 // File-backed so every row draws the Shortcuts app's own icon.
                 return KindDescriptor(
@@ -196,6 +202,8 @@ struct AppEntry: Identifiable, Hashable, Sendable {
             return Quicklink.id(fromEntryID: id).map { .quicklink(id: $0) }
         case .appleShortcut:
             return AppleShortcut.id(fromEntryID: id).map { .appleShortcut(id: $0) }
+        case .session:
+            return nil
         case .snippet:
             return StoredSnippet.id(fromEntryID: id).map { .snippet(id: $0) }
         case .extensionCommand, .meeting:
@@ -233,6 +241,7 @@ struct AppEntry: Identifiable, Hashable, Sendable {
                 ?? CustomWindowSize.sfSymbol
         case .windowLayout: return WindowLayout.sfSymbol
         case .windowRoom: return Room.sfSymbol
+        case .session: return Session.sfSymbol
         case .meeting: return "video.fill"
         case .application, .systemSettings, .appleShortcut, .extensionCommand: return "questionmark"
         }
@@ -305,6 +314,12 @@ extension AppEntry {
                 ?? QuicklinkDestination.detect(quicklink.link)?.defaultSymbol)
     }
 
+    init(_ session: Session) {
+        self.init(
+            id: session.entryID, name: session.name,
+            url: URL(string: "tinycast://session/" + session.id.uuidString)!,
+            bundleID: nil, kind: .session, subtitle: session.summary)
+    }
     /// No bundle id: that would key every shortcut's alias and ranking to the Shortcuts app.
     init(_ shortcut: AppleShortcut, applicationURL: URL) {
         self.init(
@@ -397,6 +412,7 @@ final class AppIndex {
     private var windowLayoutEntries: [AppEntry] = []
     private var windowRoomEntries: [AppEntry] = []
     private var quicklinkEntries: [AppEntry] = []
+    private var sessionEntries: [AppEntry] = []
     private var appleShortcutEntries: [AppEntry] = []
     private var customQuickActionEntries: [AppEntry] = []
     private var extensionEntries: [AppEntry] = []
@@ -540,6 +556,14 @@ final class AppIndex {
         publishEntries()
     }
 
+    /// Replaces the session slice; sessions carry their own visibility through the kind.
+    func setSessions(_ sessions: [Session]) {
+        let entries = sessions.sorted(by: Session.precedes).map(AppEntry.init)
+        guard entries != sessionEntries else { return }
+        sessionEntries = entries
+        publishEntries()
+    }
+
     func updateSnippets(_ records: [StoredSnippet]) {
         let entries =
             records
@@ -672,7 +696,7 @@ final class AppIndex {
             Self.named(meetingEntries) + discoveredEntries
             + Self.named(
                 extensionEntries + quicklinkEntries + appleShortcutEntries + snippetEntries
-                    + Self.systemActionEntries + windowLayoutEntries + windowRoomEntries
+                    + Self.systemActionEntries + windowLayoutEntries + windowRoomEntries + sessionEntries
                     + windowCommandEntries
                     + customWindowSizeEntries + customCommandEntries + quickActionEntries
                     + commandEntries)

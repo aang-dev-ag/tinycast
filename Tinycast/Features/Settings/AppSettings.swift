@@ -604,6 +604,21 @@ final class AppSettings {
         didSet { defaults.set(appleShortcutsEnabled, forKey: Key.appleShortcutsEnabled.rawValue) }
     }
 
+    /// Bundle IDs a session never captures, hides or quits; ordered like the other exclusion lists.
+    var sessionsIgnoredApps: [String] {
+        didSet { defaults.set(sessionsIgnoredApps, forKey: Key.sessionsIgnoredApps.rawValue) }
+    }
+
+    /// Bundle IDs that restore without moving any window; the app itself still relaunches.
+    var sessionsGeometryOptOut: [String] {
+        didSet { defaults.set(sessionsGeometryOptOut, forKey: Key.sessionsGeometryOptOut.rawValue) }
+    }
+
+    /// What clearing does without an explicit choice; off hides, on quits with confirmation.
+    var sessionsQuitOnClear: Bool {
+        didSet { defaults.set(sessionsQuitOnClear, forKey: Key.sessionsQuitOnClear.rawValue) }
+    }
+
     /// Ask for a new window rather than a tab; off is the macOS default.
     var quicklinkOpensNewWindow: Bool {
         didSet {
@@ -841,6 +856,9 @@ final class AppSettings {
             defaults.object(forKey: Key.quicklinksShowInLauncher.rawValue) == nil
             || defaults.bool(forKey: Key.quicklinksShowInLauncher.rawValue)
         appleShortcutsEnabled = defaults.bool(forKey: Key.appleShortcutsEnabled.rawValue)
+        sessionsIgnoredApps = defaults.stringArray(forKey: Key.sessionsIgnoredApps.rawValue) ?? []
+        sessionsGeometryOptOut = defaults.stringArray(forKey: Key.sessionsGeometryOptOut.rawValue) ?? []
+        sessionsQuitOnClear = defaults.bool(forKey: Key.sessionsQuitOnClear.rawValue)
         quicklinkOpensNewWindow = defaults.bool(forKey: Key.quicklinkOpensNewWindow.rawValue)
         quicklinkSelectionFallback =
             defaults.string(forKey: Key.quicklinkSelectionFallback.rawValue)

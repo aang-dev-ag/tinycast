@@ -59,6 +59,7 @@ Tinycast is **free, and it stays that way**. If you enjoy it, consider buying a 
 - **Custom commands** — run named shell commands through fuzzy search or their own global hotkeys.
 - **Window management** — 34 Rectangle-style actions: halves, quarters, thirds, sizing, nudging,
   display moves, fullscreen and Spaces.
+- **Sessions** — save the apps you have open as a named session, clear the workspace, restore it later.
 - **System actions** — lock, sleep, restart, empty trash, toggle appearance, Bluetooth, mute, hidden
   files, and more.
 - **Calendar and meetings** — your next meeting on the empty palette and in the menu bar, one key to

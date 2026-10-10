@@ -11,6 +11,7 @@ final class AppCore {
     let customCommands = CustomCommandStore()
     let quicklinks = QuicklinkStore()
     let windowLayouts = WindowLayoutStore()
+    let sessions = SessionStore()
     let customWindowSizes = CustomWindowSizeStore()
     let rooms = RoomStore()
     let roomMinimums = RoomMinimumSizeStore()
@@ -148,6 +149,11 @@ final class AppCore {
         settings: settings, appIndex: appIndex, hotKeys: hotKeys, favorites: favorites,
         visibility: visibility, ranking: launcherRanking, aliases: aliases, palette: palette,
         paletteCoordinator: paletteCoordinator, core: self)
+    @ObservationIgnored private(set) lazy var sessionCoordinator = SessionCoordinator(
+        store: sessions, settings: settings, appIndex: appIndex, favorites: favorites,
+        visibility: visibility, ranking: launcherRanking, aliases: aliases,
+        paletteCoordinator: paletteCoordinator, settingsCoordinator: settingsCoordinator,
+        core: self)
     @ObservationIgnored private(set) lazy var customCommandCoordinator = CustomCommandCoordinator(
         store: customCommands, settings: settings, appIndex: appIndex,
         paletteCoordinator: paletteCoordinator, settingsCoordinator: settingsCoordinator,
@@ -318,6 +324,10 @@ final class AppCore {
             roomCoordinator.applyRoomsPresence()
             // A crash can leave windows parked off-screen; they come home before anything else.
             roomCoordinator.recoverParkedWindows()
+            sessions.onChange = { [weak self] _ in
+                self?.sessionCoordinator.applySessionsPresence()
+            }
+            sessionCoordinator.applySessionsPresence()
             quicklinks.onChange = { [weak self] _ in
                 self?.quicklinkCoordinator.applyQuicklinksPresence()
             }
@@ -558,6 +568,7 @@ final class AppCore {
         hyperKeyTap.prepareForTermination()
         windowLayoutCoordinator.prepareForTermination()
         roomCoordinator.prepareForTermination()
+        sessionCoordinator.prepareForTermination()
         inputSourceSwitcher.endSession()
         textInjector.prepareForTermination()
         snippetListener.stop()
@@ -947,5 +958,9 @@ final class AppCore {
         snippetName: String, arguments: [SnippetTemplateEngine.MissingArgument]
     ) async -> [String: String]? {
         await dialogs.fillSnippetArguments(snippetName: snippetName, arguments: arguments)
+    }
+
+    func promptForText(title: String, message: String?, symbol: String, initial: String, confirmTitle: String) async -> String? {
+        await dialogs.promptForText(title: title, message: message, symbol: symbol, initial: initial, confirmTitle: confirmTitle)
     }
 }

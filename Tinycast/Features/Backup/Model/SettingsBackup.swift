@@ -77,6 +77,10 @@ struct SettingsBackup: Codable {
         var quicklinkConfirmsBeforeDelete: Bool?
         // Carried like quicklinks: running a shortcut the user built grants no permission class.
         var appleShortcutsEnabled: Bool?
+        // Carried like `menuSearchDisabledApps`: narrowing lists that grant no permission class.
+        var sessionsIgnoredApps: [String]?
+        var sessionsGeometryOptOut: [String]?
+        var sessionsQuitOnClear: Bool?
         // `calendarEnabled` is absent: an import must not grant calendar access.
         var calendarShowInLauncher: Bool?
         var calendarLauncherLimit: Int?
@@ -187,6 +191,9 @@ extension SettingsBackup {
             quicklinkSelectionFallback: s.quicklinkSelectionFallback.rawValue,
             quicklinkConfirmsBeforeDelete: s.quicklinkConfirmsBeforeDelete,
             appleShortcutsEnabled: s.appleShortcutsEnabled,
+            sessionsIgnoredApps: s.sessionsIgnoredApps,
+            sessionsGeometryOptOut: s.sessionsGeometryOptOut,
+            sessionsQuitOnClear: s.sessionsQuitOnClear,
             calendarShowInLauncher: s.calendarShowInLauncher,
             calendarLauncherLimit: s.calendarLauncherLimit.rawValue,
             calendarSpan: s.calendarSpan.rawValue,
@@ -502,6 +509,18 @@ extension SettingsBackup {
         }
         if let flag = s.appleShortcutsEnabled {
             settings.appleShortcutsEnabled = flag
+            count += 1
+        }
+        if let apps = s.sessionsIgnoredApps {
+            settings.sessionsIgnoredApps = apps
+            count += 1
+        }
+        if let apps = s.sessionsGeometryOptOut {
+            settings.sessionsGeometryOptOut = apps
+            count += 1
+        }
+        if let flag = s.sessionsQuitOnClear {
+            settings.sessionsQuitOnClear = flag
             count += 1
         }
         if let flag = s.quicklinkOpensNewWindow {

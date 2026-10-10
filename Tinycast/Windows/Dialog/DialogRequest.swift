@@ -38,6 +38,7 @@ struct DialogRequest {
 enum DialogAccessory {
     case volume(VolumeState)
     case snippetArguments(SnippetArgumentsState)
+    case textInput(DialogTextState)
 
     /// Whether ←/→/↑/↓ belong to the control rather than to whatever has focus inside it.
     var claimsArrowKeys: Bool {

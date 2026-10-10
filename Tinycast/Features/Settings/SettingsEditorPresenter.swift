@@ -424,6 +424,7 @@ extension View {
             .environment(core.windowLayouts)
             .environment(core.rooms)
             .environment(core.roomCoordinator)
+            .environment(core.sessions)
             .environment(core.customWindowSizes)
             .environment(core.customWindowSizeCoordinator)
             .environment(core.windowCommandCoordinator)

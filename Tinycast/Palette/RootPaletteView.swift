@@ -68,6 +68,8 @@ struct RootPaletteView: View {
             return QuicklinkEditorScreen(
                 coordinator: core.quicklinkCoordinator, openMenuCorner: menuCorner,
                 openInputMenu: openInputOptions)
+        case .sessions:
+            return SessionsScreen(store: core.sessions, core: core, vm: vm, openActions: openActions)
         case .snippets:
             return SnippetsScreen(
                 store: snippets, core: core, vm: vm, openActions: openActions)

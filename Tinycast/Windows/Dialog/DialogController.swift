@@ -92,6 +92,15 @@ final class DialogController: NSObject, NSWindowDelegate {
         return state.values
     }
 
+    func promptForText(title: String, message: String?, symbol: String, initial: String, confirmTitle: String) async -> String? {
+        let state = DialogTextState(initial)
+        let request = DialogRequest(
+            title: title, message: message, symbol: symbol, tone: .neutral,
+            actions: [DialogAction(title: confirmTitle), DialogAction(title: "Cancel", role: .cancel)],
+            defaultIndex: 0, cancelIndex: 1, accessory: .textInput(state))
+        guard await present(request) == 0, state.isValid else { return nil }
+        return state.trimmed
+    }
     private func present(_ request: DialogRequest) async -> Int {
         // Keyed on the continuation, so a panel still fading can't swallow the next.
         guard continuation == nil else { return request.cancelIndex }
@@ -101,7 +110,7 @@ final class DialogController: NSObject, NSWindowDelegate {
             let width =
                 switch request.accessory {
                 case nil, .volume: metrics.size.dialogCompactWidth
-                case .snippetArguments: metrics.size.dialogWidth
+                case .snippetArguments, .textInput: metrics.size.dialogWidth
                 }
             let content = hostingView(
                 DialogView(
@@ -151,6 +160,14 @@ final class DialogController: NSObject, NSWindowDelegate {
         }
     }
 
+    /// A refused primary action leaves the dialog up, as a greyed-out button would.
+    private static func accepts(_ index: Int, for request: DialogRequest) -> Bool {
+        guard index == request.defaultIndex else { return true }
+        switch request.accessory {
+        case .textInput(let state): return state.isValid
+        case nil, .volume, .snippetArguments: return true
+        }
+    }
     /// Resumes before the fade finishes, so a confirmation isn't held up by animation.
     private func finish(_ index: Int) {
         guard let continuation else { return }

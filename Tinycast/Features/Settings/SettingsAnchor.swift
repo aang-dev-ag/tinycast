@@ -84,6 +84,9 @@ extension SettingsAnchor {
     static let windowManagementInstantSpaces = Self(
         tab: .windowManagement, title: "Instant Spaces (Experimental)")
 
+    static let sessionsSessions = Self(tab: .sessions, title: "Sessions")
+    static let sessionsCommands = Self(tab: .sessions, title: "Commands")
+    static let sessionsBehaviour = Self(tab: .sessions, title: "Behaviour")
     static let clipboardClipboard = Self(tab: .clipboard, title: "Clipboard")
     static let clipboardCommands = Self(tab: .clipboard, title: "Commands")
     static let clipboardHistory = Self(tab: .clipboard, title: "History")

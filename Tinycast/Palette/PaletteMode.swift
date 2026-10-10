@@ -22,6 +22,7 @@ enum PaletteMode: String, CaseIterable, Identifiable {
     case uninstall
     case quicklinks
     case quicklinkEditor
+    case sessions
     case snippets
     case snippetEditor
     case dictionary
@@ -55,6 +56,9 @@ enum PaletteMode: String, CaseIterable, Identifiable {
         case .uninstall: return "trash"
         case .quicklinks, .quicklinkEditor: return Quicklink.sfSymbol
         case .snippets, .snippetEditor: return "curlybraces"
+        case .quicklinks: return Quicklink.sfSymbol
+        case .sessions: return Session.sfSymbol
+        case .snippets: return "curlybraces"
         case .dictionary: return "book.closed"
         case .extensionCommand: return "puzzlepiece.extension"
         }
@@ -80,6 +84,7 @@ enum PaletteMode: String, CaseIterable, Identifiable {
         case .uninstall: return "Filter files and folders by name…"
         case .quicklinks: return "Search quicklinks…"
         case .quicklinkEditor: return "Quicklink editor"
+        case .sessions: return "Search sessions…"
         case .snippets: return "Search snippets…"
         case .snippetEditor: return "Snippet editor"
         case .dictionary: return "Look up a word…"

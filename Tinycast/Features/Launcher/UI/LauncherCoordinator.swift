@@ -145,6 +145,11 @@ final class LauncherCoordinator {
             core.appleShortcutCoordinator.run(id: id)
             return
         }
+        if app.kind == .session {
+            guard let id = Session.id(fromEntryID: app.id) else { return }
+            core.sessionCoordinator.restoreSession(id: id)
+            return
+        }
         let previous = windowController.previousTarget
         paletteCoordinator.hidePalette(restoreFocus: false)
         switch app.kind {
@@ -157,7 +162,7 @@ final class LauncherCoordinator {
             guard let snippetID = StoredSnippet.id(fromEntryID: app.id) else { return }
             snippetCoordinator.expandSnippet(id: snippetID, target: previous)
         case .command, .quickAction, .customCommand, .systemAction, .windowCommand, .windowLayout,
-            .windowRoom, .quicklink, .appleShortcut, .extensionCommand, .meeting:
+            .windowRoom, .quicklink, .appleShortcut, .extensionCommand, .meeting, .session:
             break  // handled above
         }
     }
@@ -224,6 +229,14 @@ final class LauncherCoordinator {
             snippetCoordinator.showSnippets()
         case .createSnippet:
             snippetCoordinator.editSnippet(nil)
+        case .saveSession:
+            dismissPalette()
+            core.sessionCoordinator.saveCurrentSession()
+        case .sessionsBrowse:
+            core.sessionCoordinator.showSessions()
+        case .restoreLastSession:
+            dismissPalette()
+            core.sessionCoordinator.restoreLastSession()
         case .createWindowLayout:
             dismissPalette()
             windowLayoutCoordinator.editWindowLayout(nil)

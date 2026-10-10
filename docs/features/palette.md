@@ -101,6 +101,7 @@ every screen but two: the clipboard lands past its pins
 | `.quicklinkEditor`   | `QuicklinkEditorScreen`   | `QuicklinkEditorView` (see [quicklinks.md](quicklinks.md#launcher-editor)) |
 | `.snippets`          | `SnippetsScreen`          | `SnippetsList` + preview (see [snippets.md](snippets.md#search-snippets))        |
 | `.snippetEditor`     | `SnippetEditorScreen`     | `SnippetEditorView` (see [snippets.md](snippets.md#launcher-editor)) |
+| `.sessions`          | `SessionsScreen`            | session list + entry preview (see [sessions.md](sessions.md))                       |
 | `.dictionary`        | `DictionaryScreen`        | `DictionaryEntryView` (see [dictionary.md](dictionary.md))                       |
 | `.extensionCommand`  | `ExtensionCommandScreen`  | `ExtensionCommandView` (see [extensions.md](extensions.md))                      |
 

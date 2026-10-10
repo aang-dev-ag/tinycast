@@ -110,7 +110,8 @@ enum SettingsSearchCatalog {
     static let entries: [SettingsSearchEntry] =
         general + applications + systemSettings + systemActions + commands + quicklinks
         + appleShortcuts + fallbacks + clipboard + snippets + fileSearch + windowManagement
-        + navigation + notes + calendar + emoji + ai + quickActions + dictation + extensions + permissions
+        + sessions + navigation + notes + calendar + emoji + ai + quickActions + dictation + extensions
+        + permissions
         + backup + about
 
     private static let general: [SettingsSearchEntry] = [
@@ -488,6 +489,16 @@ enum SettingsSearchCatalog {
         .init(
             .windowManagementInstantSpaces, "Gesture travel",
             keywords: ["space", "spaces", "travel", "speed", "slide", "instant"])
+    ]
+
+    private static let sessions: [SettingsSearchEntry] = [
+        .init(pane: .sessions, keywords: ["workspace", "apps", "later", "hide", "restore"]),
+        .init(group: .sessionsCommands, "Session commands", keywords: ["shortcut", "launcher", "save", "restore"]),
+        .init(group: .sessionsSessions, "Sessions", keywords: ["library", "save", "restore", "rename", "delete"]),
+        .init(.sessionsSessions, "Save Current Session", keywords: ["capture", "save", "workspace", "apps"]),
+        .init(.sessionsBehaviour, "Quit when clearing", keywords: ["hide", "quit", "workspace", "clear"]),
+        .init(group: .sessionsBehaviour, "Ignored Applications", keywords: ["exclude", "ignore", "privacy"]),
+        .init(group: .sessionsBehaviour, "Window Geometry", keywords: ["position", "move", "layout"])
     ]
 
     private static let clipboard: [SettingsSearchEntry] = [
