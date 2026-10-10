@@ -70,6 +70,25 @@ final class WindowShortcutPresetCoordinator {
         }
     }
 
+    func clearAllShortcuts() async {
+        let bound = WindowCommand.ID.allCases.filter {
+            hotKeys.binding(for: .windowCommand(id: $0)) != nil
+        }
+        guard !bound.isEmpty else {
+            core.showMessage("No window shortcuts to clear.")
+            return
+        }
+        let confirmed = await core.confirm(
+            title: "Clear all window shortcuts?",
+            message: "This removes every window-management shortcut. "
+                + "Custom sizes and layouts keep theirs.",
+            symbol: "keyboard", confirmTitle: "Clear", confirmRole: .destructive)
+        guard confirmed else { return }
+        for id in bound { hotKeys.setBinding(nil, for: .windowCommand(id: id)) }
+        core.showMessage(
+            bound.count == 1 ? "Cleared 1 window shortcut." : "Cleared \(bound.count) window shortcuts.")
+    }
+
     private func currentBindings() -> [WindowCommand.ID: HotKeyBinding] {
         var current: [WindowCommand.ID: HotKeyBinding] = [:]
         for id in WindowCommand.ID.allCases {

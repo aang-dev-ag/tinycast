@@ -130,7 +130,7 @@ final class AppCore {
         settingsCoordinator: settingsCoordinator, settings: settings, core: self)
     @ObservationIgnored private(set) lazy var windowCommandCoordinator = WindowCommandCoordinator(
         settings: settings, paletteCoordinator: paletteCoordinator, windowMover: windowMover,
-        spaceSwitcher: spaceSwitcher, customSizes: customWindowSizes, hotKeys: hotKeys, core: self)
+        spaceSwitcher: spaceSwitcher, customSizes: customWindowSizes)
     @ObservationIgnored private(set) lazy var customWindowSizeCoordinator =
         CustomWindowSizeCoordinator(
             store: customWindowSizes, settings: settings, appIndex: appIndex, hotKeys: hotKeys,

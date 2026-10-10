@@ -10,20 +10,15 @@ final class WindowCommandCoordinator {
     private let windowMover: WindowMover
     private let spaceSwitcher: SpaceSwitcher
     private let customSizes: CustomWindowSizeStore
-    private let hotKeys: HotKeyManager
-    private unowned let core: AppCore
     init(
         settings: AppSettings, paletteCoordinator: PaletteCoordinator, windowMover: WindowMover,
-        spaceSwitcher: SpaceSwitcher, customSizes: CustomWindowSizeStore, hotKeys: HotKeyManager,
-        core: AppCore
+        spaceSwitcher: SpaceSwitcher, customSizes: CustomWindowSizeStore
     ) {
         self.settings = settings
         self.paletteCoordinator = paletteCoordinator
         self.windowMover = windowMover
         self.spaceSwitcher = spaceSwitcher
         self.customSizes = customSizes
-        self.hotKeys = hotKeys
-        self.core = core
     }
 
     /// The one funnel for palette and hotkey alike. See docs/features/window-management.md#wiring.
@@ -53,56 +48,6 @@ final class WindowCommandCoordinator {
     func runCustomWindowSize(id: UUID) {
         guard settings.windowManagementEnabled, let size = customSizes.size(id: id) else { return }
         windowMover.perform(size, target: handOffTarget(), gap: CGFloat(settings.windowGap))
-    }
-    /// Loads a migration preset's shortcuts, asking first: this replaces managed bindings.
-    func applyPreset(_ preset: WindowCommandPreset) async {
-        guard settings.windowManagementEnabled else { return }
-        let confirmed = await core.confirm(
-            title: "Load \(preset.title) shortcuts?",
-            message: "This replaces your window-management shortcuts. "
-                + "Shortcuts the preset doesn't cover stay as they are.",
-            symbol: "keyboard", confirmTitle: "Load", confirmRole: .destructive)
-        guard confirmed else { return }
-        let actions = preset.entries.map { HotKeyAction.windowCommand(id: $0.command) }
-        for action in actions { hotKeys.setBinding(nil, for: action) }
-        var skipped = 0
-        for entry in preset.entries {
-            let action = HotKeyAction.windowCommand(id: entry.command)
-            let binding = HotKeyBinding.combo(
-                KeyShortcut(
-                    carbonKeyCode: entry.keyCode, carbonModifiers: entry.carbonModifiers))
-            guard hotKeys.conflictOwner(of: binding, excluding: action) == nil else {
-                skipped += 1
-                continue
-            }
-            hotKeys.setBinding(binding, for: action)
-        }
-        if skipped == 0 {
-            core.showMessage("Loaded \(preset.title) shortcuts.")
-        } else {
-            core.showMessage("Loaded \(preset.title) shortcuts, skipped \(skipped) already in use.")
-        }
-    }
-
-    /// Removes every window-command shortcut, asking first.
-    func clearWindowCommandShortcuts() async {
-        guard settings.windowManagementEnabled else { return }
-        let bound = WindowCommand.ID.allCases.filter {
-            hotKeys.binding(for: .windowCommand(id: $0)) != nil
-        }
-        guard !bound.isEmpty else {
-            core.showMessage("No window shortcuts to clear.")
-            return
-        }
-        let confirmed = await core.confirm(
-            title: "Clear all window shortcuts?",
-            message: "This removes every window-management shortcut. "
-                + "Custom sizes and layouts keep theirs.",
-            symbol: "keyboard", confirmTitle: "Clear", confirmRole: .destructive)
-        guard confirmed else { return }
-        for id in bound { hotKeys.setBinding(nil, for: .windowCommand(id: id)) }
-        core.showMessage(
-            bound.count == 1 ? "Cleared 1 window shortcut." : "Cleared \(bound.count) window shortcuts.")
     }
 
     /// The window to place, read before the palette hides and hands focus back to it.
