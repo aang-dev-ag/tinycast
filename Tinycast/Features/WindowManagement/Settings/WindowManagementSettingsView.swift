@@ -7,6 +7,8 @@ struct WindowManagementSettingsView: View {
     @State private var pendingDeletion: WindowLayout?
     @State private var customSizeEdit: CustomWindowSizeEditRequest?
     @State private var chosenPreset: WindowShortcutPreset?
+    /// Pins the travel slider; an unframed Slider would stretch across the whole row.
+    private static let travelSliderWidth: CGFloat = 200
 
     var body: some View {
         @Bindable var settings = settings
@@ -142,7 +144,7 @@ struct WindowManagementSettingsView: View {
                 Slider(value: $settings.spaceSwitchTravel, in: 0.05...1.0, step: 0.05)
                     .labelsHidden()
                     .accessibilityLabel("Gesture travel")
-                    .frame(width: Theme.Size.paletteTransparencySlider)
+                    .frame(width: Self.travelSliderWidth)
             }
             .settingsEnabled(settings.instantSpacesEnabled)
             if settings.instantSpacesEnabled, core.spaceSwipeMonitor.needsAccessibility {
