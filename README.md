@@ -1,3 +1,10 @@
+---
+status: active
+remote: github.com/aang-dev-ag/tinycast (fork of abue-ammar/tinycast)
+started: 2026-09-20
+next: "retire the local/specs branch; re-rebase on each upstream release"
+---
+
 <h1 align="center">
   <a href="https://tinycast.dev"><img src="docs/images/icon.png" alt="Tinycast app icon" width="128" height="128"></a><br>
   Tinycast
@@ -38,15 +45,22 @@ For anything private, feel free to email [iabueammar@gmail.com](mailto:iabueamma
 
 ## Install
 
-On an Apple silicon Mac with macOS 26 or newer:
+First, add the tap:
 
 ```sh
-brew install --cask tinycast
-brew install --cask tinycast@beta
+brew trust --tap aang-dev-ag/personal   # required for third-party taps
+brew tap aang-dev-ag/personal
 ```
 
-- **DMG:** notarized, download from [Releases](https://github.com/abue-ammar/tinycast/releases). Drag `Tinycast.app` to `/Applications`.
-- **Intel Mac:** install from [Homebrew tap](https://github.com/abue-ammar/homebrew-tinycast).
+This fork ships Apple silicon only:
+
+| Your Mac                         | Install                        |
+| -------------------------------- | ------------------------------ |
+| Apple silicon, macOS 26 or newer | `brew install --cask tinycast` |
+
+- **Early builds:** `brew install --cask tinycast@beta` installs `Tinycast Beta.app` beside the stable app.
+- **DMG from [Releases](https://github.com/aang-dev-ag/tinycast/releases)?** It's self-signed, so run
+  `xattr -dr com.apple.quarantine "/Applications/Tinycast.app"` once.
 
 ## Support
 
