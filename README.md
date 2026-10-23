@@ -1,3 +1,10 @@
+---
+status: active
+remote: github.com/aang-dev-ag/tinycast (fork of abue-ammar/tinycast)
+started: 2026-09-20
+next: "ship Workspace Sessions from personal-fork; retire the local/specs branch"
+---
+
 # Tinycast
 
 **A tiny, fully native macOS launcher. One hotkey, everything you reach for all day, under 100 MB of
@@ -68,21 +75,18 @@ For anything private, email [iabueammar@gmail.com](mailto:iabueammar@gmail.com).
 First, add the tap:
 
 ```sh
-brew trust --tap abue-ammar/tinycast   # required for third-party taps
-brew tap abue-ammar/tinycast
+brew trust --tap aang-dev-ag/personal   # required for third-party taps
+brew tap aang-dev-ag/personal
 ```
 
-Then run the one line that matches your Mac:
+This fork ships Apple silicon only:
 
-| Your Mac                         | Install                                  |
-| -------------------------------- | ---------------------------------------- |
-| Apple silicon, macOS 26 or newer | `brew install --cask tinycast`           |
-| Intel, macOS 26                  | `brew install --cask tinycast-universal` |
-
-Not sure which Mac you have? **Apple menu → About This Mac.**
+| Your Mac                         | Install                        |
+| -------------------------------- | ------------------------------ |
+| Apple silicon, macOS 26 or newer | `brew install --cask tinycast` |
 
 - **Early builds:** `brew install --cask tinycast@beta` installs `Tinycast Beta.app` beside the stable app.
-- **DMG from [Releases](https://github.com/abue-ammar/tinycast/releases)?** It's self-signed, so run
+- **DMG from [Releases](https://github.com/aang-dev-ag/tinycast/releases)?** It's self-signed, so run
   `xattr -dr com.apple.quarantine "/Applications/Tinycast.app"` once.
 
 ## Building from source
