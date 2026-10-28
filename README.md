@@ -2,7 +2,7 @@
 status: active
 remote: github.com/aang-dev-ag/tinycast (fork of abue-ammar/tinycast)
 started: 2026-09-20
-next: "ship Workspace Sessions from personal-fork; retire the local/specs branch"
+next: "retire the local/specs branch; re-rebase on each upstream release"
 ---
 
 # Tinycast
