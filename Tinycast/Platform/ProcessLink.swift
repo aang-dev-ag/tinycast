@@ -19,7 +19,7 @@ final class ProcessLink<Outgoing: Encodable & Sendable, Incoming: Decodable & Se
     private let writer = DispatchQueue(label: "com.tinycast.process-link.write")
     private var receiver: Task<Void, Never>?
     private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier ?? "com.abueammar.tinycast", category: "ProcessLink")
+        subsystem: Bundle.main.bundleIdentifier ?? "com.tinycast.app", category: "ProcessLink")
 
     private init(reading: FileHandle, writing: FileHandle, child: Process?) {
         self.reading = reading

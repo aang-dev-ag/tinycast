@@ -97,7 +97,7 @@ enum ExtensionCatalog {
         let base =
             FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
             .first ?? FileManager.default.homeDirectoryForCurrentUser
-        let bundleID = Bundle.main.bundleIdentifier ?? "com.abueammar.tinycast"
+        let bundleID = Bundle.main.bundleIdentifier ?? "com.tinycast.app"
         return base.appendingPathComponent(bundleID, isDirectory: true)
     }
 

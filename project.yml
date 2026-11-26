@@ -1,6 +1,6 @@
 name: Tinycast
 options:
-  bundleIdPrefix: com.abueammar.tinycast
+  bundleIdPrefix: com.tinycast.app
   deploymentTarget:
     macOS: "26.0"
   createIntermediateGroups: true
@@ -17,14 +17,14 @@ settings:
     # A stable self-signed identity keeps the Accessibility grant across rebuilds. docs/signing.md
     CODE_SIGN_IDENTITY: "Tinycast Self-Signed"
     SWIFT_STRICT_CONCURRENCY: complete
-    TINYCAST_BUNDLE_IDENTIFIER: com.abueammar.tinycast
+    TINYCAST_BUNDLE_IDENTIFIER: com.tinycast.app
     TINYCAST_URL_SCHEME: tinycast
     # iCloud needs a profile, so only a build that names one swaps in TinycastCloud.entitlements.
     TINYCAST_ENTITLEMENTS: Tinycast/Tinycast.entitlements
     TINYCAST_PROVISIONING_PROFILE: ""
   configs:
     Debug:
-      TINYCAST_BUNDLE_IDENTIFIER: com.abueammar.tinycast.dev
+      TINYCAST_BUNDLE_IDENTIFIER: com.tinycast.app.dev
       TINYCAST_CLOUDKIT_ENVIRONMENT: Development
       TINYCAST_APS_ENVIRONMENT: development
       # Its own scheme too, so a link never lands in whichever channel macOS happens to pick.

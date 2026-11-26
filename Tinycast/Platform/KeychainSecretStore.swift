@@ -16,7 +16,7 @@ struct KeychainSecretStore: Sendable {
     static let installedAIEnvironment = KeychainSecretStore(scope: "installed-ai-environment")
 
     init(scope: String, bundleIdentifier: String? = Bundle.main.bundleIdentifier) {
-        service = "\(bundleIdentifier ?? "com.abueammar.tinycast").\(scope)"
+        service = "\(bundleIdentifier ?? "com.tinycast.app").\(scope)"
     }
 
     func secret(for account: UUID) throws -> String? {

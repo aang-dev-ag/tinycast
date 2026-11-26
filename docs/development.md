@@ -54,7 +54,7 @@ download on demand; none are app resources.
 
 ### The dev channel
 
-Debug builds are a separate channel: **`Tinycast Dev.app`**, bundle id `com.abueammar.tinycast.dev`.
+Debug builds are a separate channel: **`Tinycast Dev.app`**, bundle id `com.tinycast.app.dev`.
 Every persisted thing is keyed by bundle id: `~/Library/Preferences/<id>.plist` (settings and hotkey
 bindings), `~/Library/Application Support/<id>/` (the onboarding marker, Notes, snippets, quicklinks,
 clipboard history, calculator history, launch ranking and frequent emoji; Notes and snippets unless
